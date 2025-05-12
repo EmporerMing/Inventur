@@ -1,0 +1,5 @@
+C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.GeneratedMSBuildEditorConfig.editorconfig
+C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.AssemblyInfoInputs.cache
+C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.AssemblyInfo.cs
+C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.csproj.CoreCompileInputs.cache
+C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.sourcelink.json
