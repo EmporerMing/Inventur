@@ -3,3 +3,13 @@ C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.AssemblyInfoI
 C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.AssemblyInfo.cs
 C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.csproj.CoreCompileInputs.cache
 C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.sourcelink.json
+C:\servanda pacta\Inventur_MiLuv1\bin\Debug\net8.0\Inventur_MiLuv1.exe
+C:\servanda pacta\Inventur_MiLuv1\bin\Debug\net8.0\Inventur_MiLuv1.deps.json
+C:\servanda pacta\Inventur_MiLuv1\bin\Debug\net8.0\Inventur_MiLuv1.runtimeconfig.json
+C:\servanda pacta\Inventur_MiLuv1\bin\Debug\net8.0\Inventur_MiLuv1.dll
+C:\servanda pacta\Inventur_MiLuv1\bin\Debug\net8.0\Inventur_MiLuv1.pdb
+C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.dll
+C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\refint\Inventur_MiLuv1.dll
+C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.pdb
+C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\Inventur_MiLuv1.genruntimeconfig.cache
+C:\servanda pacta\Inventur_MiLuv1\obj\Debug\net8.0\ref\Inventur_MiLuv1.dll
