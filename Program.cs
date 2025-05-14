@@ -193,18 +193,38 @@ namespace ArtikelVerwaltung
                     Console.WriteLine("Passwort darf nicht leer sein.");
             } while (string.IsNullOrWhiteSpace(passwort));
 
-            // Gruppe auswählen
-            string gruppe;
+            // Gruppe per Zahl auswählen
+            string gruppe = "";
+            bool gültigeEingabe = false;
             do
             {
-                Console.Write("Gruppe (Aushilfe/Mitarbeiter/Administrator): ");
-                gruppe = Console.ReadLine();
-                if (gruppe != "Aushilfe" && gruppe != "Mitarbeiter" && gruppe != "Administrator")
+                Console.WriteLine("Gruppe auswählen:");
+                Console.WriteLine("1 - Aushilfe");
+                Console.WriteLine("2 - Mitarbeiter");
+                Console.WriteLine("3 - Administrator");
+                Console.Write("Bitte Zahl eingeben (1-3): ");
+                string eingabe = Console.ReadLine();
+
+                if (eingabe == "1")
                 {
-                    Console.WriteLine("Ungültige Gruppe! Bitte 'Aushilfe', 'Mitarbeiter' oder 'Administrator' eingeben.");
-                    gruppe = "";
+                    gruppe = "Aushilfe";
+                    gültigeEingabe = true;
                 }
-            } while (string.IsNullOrWhiteSpace(gruppe));
+                else if (eingabe == "2")
+                {
+                    gruppe = "Mitarbeiter";
+                    gültigeEingabe = true;
+                }
+                else if (eingabe == "3")
+                {
+                    gruppe = "Administrator";
+                    gültigeEingabe = true;
+                }
+                else
+                {
+                    Console.WriteLine("Ungültige Eingabe! Bitte 1, 2 oder 3 eingeben.");
+                }
+            } while (!gültigeEingabe);
 
             benutzerListe.Add(new Benutzer { Benutzername = benutzername, Passwort = passwort, Gruppe = gruppe });
             Console.WriteLine("Neuer Benutzer wurde angelegt.");
