@@ -8,7 +8,7 @@ namespace ArtikelVerwaltung
     {
         static List<Benutzer> benutzerListe = new List<Benutzer>();
         static List<Artikel> artikelListe = new List<Artikel>();
-    
+
         static void Main(string[] args)
         {
             // Standard-Admin anlegen
@@ -39,7 +39,7 @@ namespace ArtikelVerwaltung
                     bool abmelden = false;
                     while (!abmelden)
                     {
-                        // Einfaches Menü
+                        // Menü
                         Console.WriteLine();
                         Console.WriteLine("Menü:");
                         Console.WriteLine("1. Vorschlag erfassen");
@@ -48,6 +48,11 @@ namespace ArtikelVerwaltung
                         Console.WriteLine("4. Artikel anzeigen");
                         Console.WriteLine("5. Artikel suchen");
                         Console.WriteLine("6. Beenden");
+                        // Nur für Admins ersichtlich: Einen Admin mit Benutzernamen anlegen
+                        if (benutzer.Gruppe == "Administrator")
+                        {
+                            Console.WriteLine("7. Neuen Admin anlegen");
+                        }
 
                         string auswahl = Console.ReadLine();
 
@@ -71,6 +76,12 @@ namespace ArtikelVerwaltung
                             case "6":
                                 abmelden = true;
                                 programmBeendet = true;
+                                break;
+                            case "7":
+                                if (benutzer.Gruppe == "Administrator")
+                                    AdminAnlegen();
+                                else
+                                    Console.WriteLine("Keine Berechtigung.");
                                 break;
                             default:
                                 Console.WriteLine("Ungültige Auswahl.");
@@ -112,7 +123,53 @@ namespace ArtikelVerwaltung
         {
             Console.WriteLine("[Platzhalter] Artikel suchen");
         }
+
+        // Methode: Admin anlegen
+        static void AdminAnlegen()
+        {
+            Console.WriteLine("Neuen Administrator anlegen:");
+
+            // Benutzername
+            string benutzername;
+            do
+            {
+                Console.Write("Benutzername: ");
+                benutzername = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(benutzername))
+                {
+                    Console.WriteLine("Benutzername darf nicht leer sein.");
+                    continue;
+                }
+                // Prüfen, ob Benutzername schon existiert
+                bool existiert = false;
+                foreach (var b in benutzerListe)
+                {
+                    if (b.Benutzername == benutzername)
+                    {
+                        existiert = true;
+                        break;
+                    }
+                }
+                if (existiert)
+                {
+                    Console.WriteLine("Benutzername existiert bereits. Bitte anderen wählen.");
+                    benutzername = "";
+                }
+            } while (string.IsNullOrWhiteSpace(benutzername));
+
+            // Passwort
+            string passwort;
+            do
+            {
+                Console.Write("Passwort: ");
+                passwort = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(passwort))
+                    Console.WriteLine("Passwort darf nicht leer sein.");
+            } while (string.IsNullOrWhiteSpace(passwort));
+
+            // Administratorengruppe
+            benutzerListe.Add(new Benutzer { Benutzername = benutzername, Passwort = passwort, Gruppe = "Administrator" });
+            Console.WriteLine("Neuer Administrator wurde angelegt.");
+        }
     }
 }
-
-
