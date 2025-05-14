@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿public class Benutzer
+{
+  
+    public string Benutzername { get; set; }
+    public string Passwort { get; set; }
+    public string Gruppe { get; set; }
 
-    namespace ArtikelVerwaltung
+    //Konstruktor
+    public Benutzer() { }
+
+    public Benutzer(string benutzername, string passwort, string gruppe)
     {
-        class Benutzer
-        {
-            public string Benutzername { get; set; }
-            public string Passwort { get; set; }
-            public string Gruppe { get; set; }
-        }
+        Benutzername = benutzername;
+        Passwort = passwort;
+        Gruppe = gruppe;
     }
+}
+
 
 
