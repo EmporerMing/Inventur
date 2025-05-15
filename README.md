@@ -1,1 +1,1 @@
-GCS proudly presents ...Inventur
+Hier werden Json Dateien zur Datenablage verwendet.
