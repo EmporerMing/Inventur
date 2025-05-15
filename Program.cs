@@ -1,18 +1,19 @@
-﻿using Inventur_MiLuv1;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Inventur_MiLuv1.ArtikelVerwaltung; // Für die Klasse Vorschlag
 
-namespace ArtikelVerwaltung
+namespace Inventur_MiLuv1
 {
     class Program
     {
         static List<Benutzer> benutzerListe = new List<Benutzer>();
         static List<Artikel> artikelListe = new List<Artikel>();
+        static List<Vorschlag> vorschlagsListe = new List<Vorschlag>();
 
         static void Main(string[] args)
         {
             // Standard-Admin anlegen
-            benutzerListe.Add(new Benutzer { Benutzername = "admin", Passwort = "admin", Gruppe = "Administrator" });
+            benutzerListe.Add(new Benutzer("admin", "admin", "Administrator"));
 
             bool programmBeendet = false;
 
@@ -39,12 +40,10 @@ namespace ArtikelVerwaltung
                     bool abmelden = false;
                     while (!abmelden)
                     {
-                        // Menü
                         Console.WriteLine();
                         Console.WriteLine("Menü:");
                         Console.WriteLine("1. Vorschlag erfassen");
                         Console.WriteLine("2. Vorschläge bestätigen");
-                        // Nur für Admins: Benutzer anlegen und Admin anlegen
                         if (benutzer.Gruppe == "Administrator")
                         {
                             Console.WriteLine("3. Benutzer anlegen");
@@ -129,33 +128,107 @@ namespace ArtikelVerwaltung
             Console.WriteLine("Programm beendet.");
         }
 
-        // Platzhalter-Methoden
         static void VorschlagErfassen()
         {
-            Console.WriteLine("[Platzhalter] Vorschlag erfassen");
+            Console.WriteLine("Neuen Artikelsvorschlag erfassen:");
+            Console.Write("Artikelnummer (ganzzahlig): ");
+            int artikelnummer;
+            while (!int.TryParse(Console.ReadLine(), out artikelnummer))
+            {
+                Console.WriteLine("Bitte eine gültige Artikelnummer eingeben.");
+                Console.Write("Artikelnummer: ");
+            }
+
+            Console.Write("Menge: ");
+            int menge;
+            while (!int.TryParse(Console.ReadLine(), out menge))
+            {
+                Console.WriteLine("Bitte eine gültige Menge eingeben.");
+                Console.Write("Menge: ");
+            }
+
+            var vorschlag = new Vorschlag { Artikelnummer = artikelnummer, Menge = menge };
+            vorschlagsListe.Add(vorschlag);
+            Console.WriteLine("Vorschlag gespeichert!");
         }
 
         static void VorschlaegeBestaetigen()
         {
-            Console.WriteLine("[Platzhalter] Vorschläge bestätigen");
+            if (vorschlagsListe.Count == 0)
+            {
+                Console.WriteLine("Keine Vorschläge vorhanden.");
+                return;
+            }
+
+            Console.WriteLine("Offene Vorschläge:");
+            for (int i = 0; i < vorschlagsListe.Count; i++)
+            {
+                var v = vorschlagsListe[i];
+                Console.WriteLine($"{i + 1}. Artikelnummer: {v.Artikelnummer}, Menge: {v.Menge}");
+            }
+
+            Console.Write("Vorschlagnummer zum Bestätigen (0 zum Abbrechen): ");
+            if (int.TryParse(Console.ReadLine(), out int auswahl) && auswahl > 0 && auswahl <= vorschlagsListe.Count)
+            {
+                var bestaetigterVorschlag = vorschlagsListe[auswahl - 1];
+
+                // Artikel anlegen (Name/Beschreibung als Platzhalter)
+                artikelListe.Add(new Artikel(
+                    $"Artikel {bestaetigterVorschlag.Artikelnummer}",
+                    "Beschreibung folgt",
+                    bestaetigterVorschlag.Menge
+                ));
+
+                vorschlagsListe.RemoveAt(auswahl - 1);
+                Console.WriteLine("Vorschlag wurde als Artikel übernommen!");
+            }
+            else if (auswahl != 0)
+            {
+                Console.WriteLine("Ungültige Eingabe.");
+            }
         }
 
         static void ArtikelAnzeigen()
         {
-            Console.WriteLine("[Platzhalter] Artikel anzeigen");
+            if (artikelListe.Count == 0)
+            {
+                Console.WriteLine("Keine Artikel vorhanden.");
+                return;
+            }
+
+            Console.WriteLine("Name\t\tBeschreibung\t\tAnzahl");
+            foreach (var artikel in artikelListe)
+            {
+                Console.WriteLine($"{artikel.Name}\t{artikel.Beschreibung}\t{artikel.Anzahl}");
+            }
         }
 
         static void ArtikelSuchen()
         {
-            Console.WriteLine("[Platzhalter] Artikel suchen");
+            Console.Write("Artikelname oder Beschreibung suchen: ");
+            string suche = Console.ReadLine();
+
+            var gefunden = artikelListe.FindAll(a =>
+                (a.Name != null && a.Name.Contains(suche, StringComparison.OrdinalIgnoreCase)) ||
+                (a.Beschreibung != null && a.Beschreibung.Contains(suche, StringComparison.OrdinalIgnoreCase)));
+
+            if (gefunden.Count == 0)
+            {
+                Console.WriteLine("Kein Artikel gefunden.");
+            }
+            else
+            {
+                Console.WriteLine("Gefundene Artikel:");
+                foreach (var artikel in gefunden)
+                {
+                    Console.WriteLine($"Name: {artikel.Name}, Beschreibung: {artikel.Beschreibung}, Anzahl: {artikel.Anzahl}");
+                }
+            }
         }
 
-        // Methode: Benutzer (Aushilfe, Mitarbeiter, Admin) anlegen
         static void BenutzerAnlegen()
         {
             Console.WriteLine("Neuen Benutzer anlegen:");
-
-            // Benutzername
             string benutzername;
             do
             {
@@ -166,16 +239,7 @@ namespace ArtikelVerwaltung
                     Console.WriteLine("Benutzername darf nicht leer sein.");
                     continue;
                 }
-                // Prüfen, ob Benutzername schon existiert
-                bool existiert = false;
-                foreach (var b in benutzerListe)
-                {
-                    if (b.Benutzername == benutzername)
-                    {
-                        existiert = true;
-                        break;
-                    }
-                }
+                bool existiert = benutzerListe.Exists(b => b.Benutzername == benutzername);
                 if (existiert)
                 {
                     Console.WriteLine("Benutzername existiert bereits. Bitte anderen wählen.");
@@ -183,7 +247,6 @@ namespace ArtikelVerwaltung
                 }
             } while (string.IsNullOrWhiteSpace(benutzername));
 
-            // Passwort
             string passwort;
             do
             {
@@ -193,49 +256,35 @@ namespace ArtikelVerwaltung
                     Console.WriteLine("Passwort darf nicht leer sein.");
             } while (string.IsNullOrWhiteSpace(passwort));
 
-            // Gruppe per Zahl auswählen
             string gruppe = "";
-            bool gültigeEingabe = false;
             do
             {
-                Console.WriteLine("Gruppe auswählen:");
-                Console.WriteLine("1 - Aushilfe");
-                Console.WriteLine("2 - Mitarbeiter");
-                Console.WriteLine("3 - Administrator");
-                Console.Write("Bitte Zahl eingeben (1-3): ");
+                Console.Write("Gruppe wählen (1 = Aushilfe, 2 = Mitarbeiter, 3 = Administrator): ");
                 string eingabe = Console.ReadLine();
+                switch (eingabe)
+                {
+                    case "1":
+                        gruppe = "Aushilfe";
+                        break;
+                    case "2":
+                        gruppe = "Mitarbeiter";
+                        break;
+                    case "3":
+                        gruppe = "Administrator";
+                        break;
+                    default:
+                        Console.WriteLine("Ungültige Eingabe! Bitte 1, 2 oder 3 eingeben.");
+                        break;
+                }
+            } while (string.IsNullOrWhiteSpace(gruppe));
 
-                if (eingabe == "1")
-                {
-                    gruppe = "Aushilfe";
-                    gültigeEingabe = true;
-                }
-                else if (eingabe == "2")
-                {
-                    gruppe = "Mitarbeiter";
-                    gültigeEingabe = true;
-                }
-                else if (eingabe == "3")
-                {
-                    gruppe = "Administrator";
-                    gültigeEingabe = true;
-                }
-                else
-                {
-                    Console.WriteLine("Ungültige Eingabe! Bitte 1, 2 oder 3 eingeben.");
-                }
-            } while (!gültigeEingabe);
-
-            benutzerListe.Add(new Benutzer { Benutzername = benutzername, Passwort = passwort, Gruppe = gruppe });
+            benutzerListe.Add(new Benutzer(benutzername, passwort, gruppe));
             Console.WriteLine("Neuer Benutzer wurde angelegt.");
         }
 
-        // Methode: Nur Admin anlegen (direkt als Admin, ohne Gruppenauswahl)
         static void AdminAnlegen()
         {
             Console.WriteLine("Neuen Administrator anlegen:");
-
-            // Benutzername
             string benutzername;
             do
             {
@@ -246,16 +295,7 @@ namespace ArtikelVerwaltung
                     Console.WriteLine("Benutzername darf nicht leer sein.");
                     continue;
                 }
-                // Prüfen, ob Benutzername schon existiert
-                bool existiert = false;
-                foreach (var b in benutzerListe)
-                {
-                    if (b.Benutzername == benutzername)
-                    {
-                        existiert = true;
-                        break;
-                    }
-                }
+                bool existiert = benutzerListe.Exists(b => b.Benutzername == benutzername);
                 if (existiert)
                 {
                     Console.WriteLine("Benutzername existiert bereits. Bitte anderen wählen.");
@@ -263,7 +303,6 @@ namespace ArtikelVerwaltung
                 }
             } while (string.IsNullOrWhiteSpace(benutzername));
 
-            // Passwort
             string passwort;
             do
             {
@@ -273,7 +312,8 @@ namespace ArtikelVerwaltung
                     Console.WriteLine("Passwort darf nicht leer sein.");
             } while (string.IsNullOrWhiteSpace(passwort));
 
-            benutzerListe.Add(new Benutzer { Benutzername = benutzername, Passwort = passwort, Gruppe = "Administrator" });
+            // Für Admin immer Gruppe = "Administrator"
+            benutzerListe.Add(new Benutzer(benutzername, passwort, "Administrator"));
             Console.WriteLine("Neuer Administrator wurde angelegt.");
         }
     }
