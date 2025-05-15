@@ -1,1 +1,1 @@
-GCS praudly presents ...Inventur
+GCS proudly presents ...Inventur
