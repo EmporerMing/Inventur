@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Inventur_MiLuv1.ArtikelVerwaltung; // Für die Klasse Vorschlag
+using Inventur_MiLuv1.ArtikelVerwaltung;
 
 namespace Inventur_MiLuv1
 {
@@ -19,7 +19,6 @@ namespace Inventur_MiLuv1
 
             while (!programmBeendet)
             {
-                // Login
                 Console.WriteLine("Benutzername:");
                 string benutzername = Console.ReadLine();
                 Console.WriteLine("Passwort:");
@@ -310,9 +309,7 @@ namespace Inventur_MiLuv1
                 passwort = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(passwort))
                     Console.WriteLine("Passwort darf nicht leer sein.");
-            } while (string.IsNullOrWhiteSpace(passwort));
-
-            // Für Admin immer Gruppe = "Administrator"
+            } while (string.IsNullOrWhiteSpace(passwort),
             benutzerListe.Add(new Benutzer(benutzername, passwort, "Administrator"));
             Console.WriteLine("Neuer Administrator wurde angelegt.");
         }
