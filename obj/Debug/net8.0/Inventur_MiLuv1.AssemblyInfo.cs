@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Inventur_MiLuv1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ced18befeb04e1183a891ea3576d9f935b468bc4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+69ee9154a7f13616b211a77dbdcd979f1c63742d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Inventur_MiLuv1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Inventur_MiLuv1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

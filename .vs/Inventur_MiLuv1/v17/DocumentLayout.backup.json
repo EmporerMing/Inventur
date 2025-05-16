@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{F6371E4C-A975-4073-8F15-9993F58512EB}|Inventur_MiLuv1.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6371E4C-A975-4073-8F15-9993F58512EB}|Inventur_MiLuv1.csproj|c:\\servanda pacta\\inventur_miluv1\\artikelverwaltung.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6371E4C-A975-4073-8F15-9993F58512EB}|Inventur_MiLuv1.csproj|solutionrelative:artikelverwaltung.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F6371E4C-A975-4073-8F15-9993F58512EB}|Inventur_MiLuv1.csproj|c:\\servanda pacta\\inventur_miluv1\\artikel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6371E4C-A975-4073-8F15-9993F58512EB}|Inventur_MiLuv1.csproj|solutionrelative:artikel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F6371E4C-A975-4073-8F15-9993F58512EB}|Inventur_MiLuv1.csproj|c:\\servanda pacta\\inventur_miluv1\\benutzer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6371E4C-A975-4073-8F15-9993F58512EB}|Inventur_MiLuv1.csproj|solutionrelative:benutzer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6371E4C-A975-4073-8F15-9993F58512EB}|Inventur_MiLuv1.csproj|c:\\servanda pacta\\inventur_miluv1\\artikel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6371E4C-A975-4073-8F15-9993F58512EB}|Inventur_MiLuv1.csproj|solutionrelative:artikel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F6371E4C-A975-4073-8F15-9993F58512EB}|Inventur_MiLuv1.csproj|c:\\servanda pacta\\inventur_miluv1\\vorschlag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6371E4C-A975-4073-8F15-9993F58512EB}|Inventur_MiLuv1.csproj|solutionrelative:vorschlag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,13 +54,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Artikelverwaltung.cs",
-              "DocumentMoniker": "C:\\servanda pacta\\Inventur_MiLuv1\\Artikelverwaltung.cs",
-              "RelativeDocumentMoniker": "Artikelverwaltung.cs",
-              "ToolTip": "C:\\servanda pacta\\Inventur_MiLuv1\\Artikelverwaltung.cs",
-              "RelativeToolTip": "Artikelverwaltung.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAwwAwAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\servanda pacta\\Inventur_MiLuv1\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\servanda pacta\\Inventur_MiLuv1\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAHABAAAAAAAAAAAIwFoBAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T07:59:51.989Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Vorschlag.cs",
+              "DocumentMoniker": "C:\\servanda pacta\\Inventur_MiLuv1\\Vorschlag.cs",
+              "RelativeDocumentMoniker": "Vorschlag.cs",
+              "ToolTip": "C:\\servanda pacta\\Inventur_MiLuv1\\Vorschlag.cs",
+              "RelativeToolTip": "Vorschlag.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-13T11:14:16.519Z",
               "EditorCaption": ""
@@ -73,35 +86,22 @@
               "RelativeDocumentMoniker": "Benutzer.cs",
               "ToolTip": "C:\\servanda pacta\\Inventur_MiLuv1\\Benutzer.cs",
               "RelativeToolTip": "Benutzer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-13T11:09:41.13Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Artikel.cs",
               "DocumentMoniker": "C:\\servanda pacta\\Inventur_MiLuv1\\Artikel.cs",
               "RelativeDocumentMoniker": "Artikel.cs",
               "ToolTip": "C:\\servanda pacta\\Inventur_MiLuv1\\Artikel.cs",
               "RelativeToolTip": "Artikel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-13T06:23:54.859Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\servanda pacta\\Inventur_MiLuv1\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\servanda pacta\\Inventur_MiLuv1\\Program.cs*",
-              "RelativeToolTip": "Program.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAwwAoAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T07:59:51.989Z",
               "EditorCaption": ""
             }
           ]

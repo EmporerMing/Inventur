@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Inventur_MiLuv1.ArtikelVerwaltung; // Für die Klasse Vorschlag
+using System.IO;
+using System.Text.Json;
 
 namespace Inventur_MiLuv1
 {
@@ -10,10 +11,23 @@ namespace Inventur_MiLuv1
         static List<Artikel> artikelListe = new List<Artikel>();
         static List<Vorschlag> vorschlagsListe = new List<Vorschlag>();
 
+        static string benutzerDatei = "benutzer.json";
+        static string artikelDatei = "artikel.json";
+
         static void Main(string[] args)
         {
-            // Standard-Admin anlegen
-            benutzerListe.Add(new Benutzer("admin", "admin", "Administrator"));
+            // Abfrage ob Benutzer laden?
+            Console.Write("Vorhandene Benutzer laden? (j/n): ");
+            string eingabeLaden = Console.ReadLine().Trim().ToLower();
+            if (eingabeLaden == "j")
+            {
+                BenutzerLaden();
+                ArtikelLaden();
+            }
+            else
+            {
+                benutzerListe.Add(new Benutzer("admin", "admin", "Administrator"));
+            }
 
             bool programmBeendet = false;
 
@@ -26,7 +40,7 @@ namespace Inventur_MiLuv1
                 string passwort = Console.ReadLine();
 
                 Benutzer benutzer = null;
-                foreach (var b in benutzerListe)
+                foreach (Benutzer b in benutzerListe)
                 {
                     if (b.Benutzername == benutzername && b.Passwort == passwort)
                     {
@@ -125,8 +139,24 @@ namespace Inventur_MiLuv1
                 }
             }
 
+            // Soll Benutzer gespeichert werden?
+            Console.Write("Benutzer und Artikel speichern? (j/n): ");
+            string eingabeSpeichern = Console.ReadLine().Trim().ToLower();
+            if (eingabeSpeichern == "j")
+            {
+                BenutzerSpeichern();
+                ArtikelSpeichern();
+                Console.WriteLine("Daten wurden gespeichert.");
+            }
+            else
+            {
+                Console.WriteLine("Daten wurden nicht gespeichert.");
+            }
+
             Console.WriteLine("Programm beendet.");
         }
+
+        // Vorschlag, Erfassung Aushilfe
 
         static void VorschlagErfassen()
         {
@@ -146,8 +176,7 @@ namespace Inventur_MiLuv1
                 Console.WriteLine("Bitte eine gültige Menge eingeben.");
                 Console.Write("Menge: ");
             }
-
-            var vorschlag = new Vorschlag { Artikelnummer = artikelnummer, Menge = menge };
+            Vorschlag vorschlag = new Vorschlag { Artikelnummer = artikelnummer, Menge = menge };
             vorschlagsListe.Add(vorschlag);
             Console.WriteLine("Vorschlag gespeichert!");
         }
@@ -163,16 +192,15 @@ namespace Inventur_MiLuv1
             Console.WriteLine("Offene Vorschläge:");
             for (int i = 0; i < vorschlagsListe.Count; i++)
             {
-                var v = vorschlagsListe[i];
+                Vorschlag v = vorschlagsListe[i];
                 Console.WriteLine($"{i + 1}. Artikelnummer: {v.Artikelnummer}, Menge: {v.Menge}");
             }
 
             Console.Write("Vorschlagnummer zum Bestätigen (0 zum Abbrechen): ");
-            if (int.TryParse(Console.ReadLine(), out int auswahl) && auswahl > 0 && auswahl <= vorschlagsListe.Count)
+            int auswahl;
+            if (int.TryParse(Console.ReadLine(), out auswahl) && auswahl > 0 && auswahl <= vorschlagsListe.Count)
             {
-                var bestaetigterVorschlag = vorschlagsListe[auswahl - 1];
-
-                // Artikel anlegen (Name/Beschreibung als Platzhalter)
+                Vorschlag bestaetigterVorschlag = vorschlagsListe[auswahl - 1];
                 artikelListe.Add(new Artikel(
                     $"Artikel {bestaetigterVorschlag.Artikelnummer}",
                     "Beschreibung folgt",
@@ -197,7 +225,7 @@ namespace Inventur_MiLuv1
             }
 
             Console.WriteLine("Name\t\tBeschreibung\t\tAnzahl");
-            foreach (var artikel in artikelListe)
+            foreach (Artikel artikel in artikelListe)
             {
                 Console.WriteLine($"{artikel.Name}\t{artikel.Beschreibung}\t{artikel.Anzahl}");
             }
@@ -208,7 +236,7 @@ namespace Inventur_MiLuv1
             Console.Write("Artikelname oder Beschreibung suchen: ");
             string suche = Console.ReadLine();
 
-            var gefunden = artikelListe.FindAll(a =>
+            List<Artikel> gefunden = artikelListe.FindAll(a =>
                 (a.Name != null && a.Name.Contains(suche, StringComparison.OrdinalIgnoreCase)) ||
                 (a.Beschreibung != null && a.Beschreibung.Contains(suche, StringComparison.OrdinalIgnoreCase)));
 
@@ -219,7 +247,7 @@ namespace Inventur_MiLuv1
             else
             {
                 Console.WriteLine("Gefundene Artikel:");
-                foreach (var artikel in gefunden)
+                foreach (Artikel artikel in gefunden)
                 {
                     Console.WriteLine($"Name: {artikel.Name}, Beschreibung: {artikel.Beschreibung}, Anzahl: {artikel.Anzahl}");
                 }
@@ -312,9 +340,44 @@ namespace Inventur_MiLuv1
                     Console.WriteLine("Passwort darf nicht leer sein.");
             } while (string.IsNullOrWhiteSpace(passwort));
 
-            // Für Admin immer Gruppe = "Administrator"
             benutzerListe.Add(new Benutzer(benutzername, passwort, "Administrator"));
             Console.WriteLine("Neuer Administrator wurde angelegt.");
+        }
+
+        // JSON-Speicherung und -Laden 
+
+        static void BenutzerLaden()
+        {
+            if (File.Exists(benutzerDatei))
+            {
+                string json = File.ReadAllText(benutzerDatei);
+                List<Benutzer> benutzer = JsonSerializer.Deserialize<List<Benutzer>>(json);
+                if (benutzer != null)
+                    benutzerListe = benutzer;
+            }
+        }
+
+        static void BenutzerSpeichern()
+        {
+            string json = JsonSerializer.Serialize(benutzerListe, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(benutzerDatei, json);
+        }
+
+        static void ArtikelLaden()
+        {
+            if (File.Exists(artikelDatei))
+            {
+                string json = File.ReadAllText(artikelDatei);
+                List<Artikel> artikel = JsonSerializer.Deserialize<List<Artikel>>(json);
+                if (artikel != null)
+                    artikelListe = artikel;
+            }
+        }
+
+        static void ArtikelSpeichern()
+        {
+            string json = JsonSerializer.Serialize(artikelListe, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(artikelDatei, json);
         }
     }
 }
